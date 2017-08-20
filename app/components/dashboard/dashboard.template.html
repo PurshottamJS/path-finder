@@ -1,0 +1,31 @@
+<div class="jumbotron">
+    <form name="form">
+        <div class="form-group">
+            <label for="from">Trip start location:</label>
+            <select class="form-control" name="start" ng-model="dashboard.start" required>
+                <option value="">Trip start location</option>
+                <option ng-repeat="option in dashboard.list()" ng-hide="option===dashboard.end" value="{{option}}">{{option}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="to">Trip end location:</label>
+            <select class="form-control" name="end" ng-model="dashboard.end" required="">
+                <option value="">Trip end location</option>
+                <option ng-repeat="option in dashboard.list()" ng-hide="option===dashboard.start" value="{{option}}">{{option}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <button type="button" ng-click="dashboard.setType('fastest')" class="btn" ng-class="{'btn-primary':dashboard.type==='fastest'}">Fastest</button>
+                <button type="button" ng-click="dashboard.setType('cheapest')" class="btn" ng-class="{'btn-primary':dashboard.type==='cheapest'}">Cheapest</button>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" ng-disabled="form.$invalid" ng-click="dashboard.search()" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+<hr>
+<div class="jumbotron" ng-repeat="row in dashboard.path">
+    <b>{{row.departure}}</b> <span class="glyphicon glyphicon-chevron-right"></span> <b>{{row.arrival}}</b>&nbsp;&nbsp;&nbsp;&nbsp;{{row.cost}}<span class="glyphicon glyphicon-euro"></span>
+</div>
